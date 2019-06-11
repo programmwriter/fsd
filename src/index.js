@@ -1,5 +1,5 @@
 import { bro } from "./bro";
-import "./styles/main.scss";
+import "./assets/styles/main.scss";
 
 let template = require("./users.pug");
 let locals = {
