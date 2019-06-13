@@ -1,8 +1,14 @@
-$bg: blue;
+$bg: #e5e5e5;
 $title: red;
 
 body {
   background: $bg;
+}
+main {
+  margin: auto;
+  background: #fff;
+  width: 1440px;
+  height: 900px;
 }
 .title {
   color: $title;
