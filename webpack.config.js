@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node-modules/,
+        // exclude: /node-modules/,
         use: [
           {
             loader: "babel-loader",
@@ -81,5 +81,11 @@ module.exports = {
       filename: "[name].css",
       chunkFilename: "[id].css"
     })
-  ]
+  ],
+  resolve: {
+    extensions: [".js", ".css", ".scss"],
+    modules: ["src", "node_modules"]
+  },
+
+  devtool: "source-map"
 };

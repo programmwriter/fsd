@@ -1,7 +1,7 @@
 import "paginationjs";
 
 $(function() {
-  function createDemo(name) {
+  function createPaginator(name) {
     var container = $("#pagination-" + name);
     var sources = (function() {
       var result = [];
@@ -27,16 +27,14 @@ $(function() {
         container.prev().html(dataHtml);
       }
     };
-    //$.pagination(container, options);
     container.addHook("beforeInit", function() {
       window.console && console.log("beforeInit...");
     });
     container.pagination(options);
     container.addHook("beforePageOnClick", function() {
       window.console && console.log("beforePageOnClick...");
-      //return false
     });
     return container;
   }
-  createDemo("box");
+  createPaginator("box");
 });

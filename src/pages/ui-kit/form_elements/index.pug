@@ -15,6 +15,7 @@ include /buttons/button.pug
 include /pagination/pagination.pug
 include rich_checkbox_buttons/richChButtons.pug
 include bullet_list/bulletList.pug
+include dropdown_iq/dropdownIq.pug
 
 
 
@@ -67,7 +68,8 @@ include bullet_list/bulletList.pug
     .itemBlockDd(style="margin-top:270px")
       +titleH3("Rich Checkbox Buttons")
       +richChButtons([{label: "Широкий коридор",desc:"Ширина коридоров в номере не менее 91 см"},{label: "Помощник для инвалидов",desc:" На 1 этаже вас встретит специалист и проводит до номера."}])
-      
+    .itemBlockDd(style="margin-top:50px")  
+      +dropdownIq    
 
 
   .column_container

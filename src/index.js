@@ -11,6 +11,12 @@ import "./pages/ui-kit/form_elements/range_slider/rangeSlider.js";
 import "./pages/ui-kit/form_elements/buttons/button.js";
 import "./pages/ui-kit/form_elements/pagination/pagination.js";
 import "./pages/ui-kit/form_elements/rich_checkbox_buttons/richChButtons.js";
+import "./pages/ui-kit/form_elements/dropdown_iq/dropdownIq.js";
+
+// require("./node_modules/item-quantity-dropdown.js");
+// require("./node_modules/item-quantity-dropdown/lib/item-quantity-dropdown.css");
 
 require("webpack-jquery-ui");
 require("webpack-jquery-ui/css");
+require("../node_modules/item-quantity-dropdown/lib/item-quantity-dropdown.min.js");
+require("../node_modules/item-quantity-dropdown/lib/item-quantity-dropdown.min.css");
