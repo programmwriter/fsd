@@ -12,6 +12,7 @@ import "./pages/ui-kit/form_elements/buttons/button.js";
 import "./pages/ui-kit/form_elements/pagination/pagination.js";
 import "./pages/ui-kit/form_elements/rich_checkbox_buttons/richChButtons.js";
 import "./pages/ui-kit/form_elements/dropdown_iq/dropdownIq.js";
+import "./pages/ui-kit/form_elements/dropdown_Ncs/dropdownNcs.js";
 
 // require("./node_modules/item-quantity-dropdown.js");
 // require("./node_modules/item-quantity-dropdown/lib/item-quantity-dropdown.css");
