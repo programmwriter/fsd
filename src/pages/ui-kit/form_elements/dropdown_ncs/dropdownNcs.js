@@ -1,18 +1,11 @@
-/*
- * numbercategoryselector.js
- * Author & copyright (c) 2017: Sakri Koskimies
- *
- * MIT license
- */
-$(document).ready(function() {
-  (function($) {
-    $.fn.NCS = function(options) {
+$(document).ready(function () {
+  (function ($) {
+    $.fn.NCS = function (options) {
       $input = $(this);
       $input__box = $(".dropdownNcs__box");
       $originalPlaceholder = $input.attr("placeholder");
 
-      var settings = $.extend(
-        {
+      var settings = $.extend({
           // Defaults.
           categoryNames: ["Adults", "Children"],
           categoryValues: false,
@@ -25,7 +18,7 @@ $(document).ready(function() {
           fade: true,
           useDisplay: true,
           showZero: false,
-          callback: function(values) {}
+          callback: function (values) {}
         },
         options
       );
@@ -40,7 +33,7 @@ $(document).ready(function() {
       $parent = createHTML();
 
       if (settings.closeOnOutsideClick) {
-        $(document).mouseup(function(e) {
+        $(document).mouseup(function (e) {
           if (
             !$input.is(e.target) &&
             !$parent.is(e.target) &&
@@ -53,18 +46,17 @@ $(document).ready(function() {
             } else {
               $parent.hide();
             }
+            switchSelectorInput();
           }
         });
       }
 
-      $(this).click(function() {
-        // setPositions();
+      $(this).click(function () {
         switchSelector();
-
-        // console.log($input__box.parent().position().top);
+        switchSelectorInput();
       });
 
-      $(window).resize(function() {
+      $(window).resize(function () {
         setPositions();
       });
 
@@ -96,8 +88,8 @@ $(document).ready(function() {
             $parent.css(
               "left",
               $input.position().left +
-                $input.outerWidth(true) -
-                $parent.outerWidth(true)
+              $input.outerWidth(true) -
+              $parent.outerWidth(true)
             );
             break;
           case "center":
@@ -109,8 +101,8 @@ $(document).ready(function() {
             $parent.css(
               "left",
               $input.position().left +
-                $input.outerWidth(true) / 2 -
-                $parent.outerWidth(true) / 2
+              $input.outerWidth(true) / 2 -
+              $parent.outerWidth(true) / 2
             );
             break;
         }
@@ -123,7 +115,7 @@ $(document).ready(function() {
         }
       }
 
-      $("a.NCS.button.plus").click(function() {
+      $("a.NCS.button.plus").click(function () {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] < settings.maxValue) {
           settings.categoryValues[$category]++;
@@ -155,7 +147,7 @@ $(document).ready(function() {
         return false;
       });
 
-      $("a.NCS.button.minus").click(function() {
+      $("a.NCS.button.minus").click(function () {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] > settings.minValue) {
           settings.categoryValues[$category]--;
@@ -242,7 +234,7 @@ $(document).ready(function() {
           console.log($input.position().top);
           $("<div class='NCS inlinedisplay'></div>").appendTo($display);
 
-          $display.click(function() {
+          $display.click(function () {
             switchSelector();
           });
         }
@@ -281,35 +273,28 @@ $(document).ready(function() {
         for ($i = 0; $i < settings.categoryNames.length; $i++) {
           $category = $("<div class='NCS category'></div>").appendTo($parent);
           $text = $("<div class='NCS text'></div>").appendTo($category);
-          // $value = $(
-          //   "<div class='NCS value' category='" +
-          //     $i +
-          //     "'>" +
-          //     settings.categoryValues[$i] +
-          //     "</div>"
-          // ).appendTo($text);
           $name = $(
             "<div class='NCS name' category='" +
-              $i +
-              "'>&nbsp;" +
-              settings.categoryNames[$i] +
-              "</div>"
+            $i +
+            "'>&nbsp;" +
+            settings.categoryNames[$i] +
+            "</div>"
           ).appendTo($text);
           $buttons = $("<div class='NCS buttons'></div>").appendTo($category);
-          $button_plus = $(
-            "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
+          $button_minus = $(
+            "<a href='' class='NCS button minus' category='" +
+            $i +
+            "'>&#8211;</a>"
           ).appendTo($buttons);
           $value = $(
             "<div class='NCS value' category='" +
-              $i +
-              "'>" +
-              settings.categoryValues[$i] +
-              "</div>"
+            $i +
+            "'>" +
+            settings.categoryValues[$i] +
+            "</div>"
           ).appendTo($buttons);
-          $button_minus = $(
-            "<a href='' class='NCS button minus' category='" +
-              $i +
-              "'>&#8211;</a>"
+          $button_plus = $(
+            "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
           ).appendTo($buttons);
 
           if (settings.categoryValues[$i] == settings.maxValue) {
@@ -355,6 +340,14 @@ $(document).ready(function() {
         }
       }
 
+      function switchSelectorInput() {
+        if ($input.hasClass("ncs_clicked") && $parent.attr("display") === "none") {
+          $input.removeClass("ncs_clicked");
+        } else {
+          $input.addClass("ncs_clicked");
+        }
+      }
+
       function newFilledArray(len, val) {
         var rv = new Array(len);
         while (--len >= 0) {
@@ -374,10 +367,10 @@ $(document).ready(function() {
     showText: true,
     delimiter: ", ",
     align: "left",
-    fade: true,
+    fade: false,
     useDisplay: false,
-    showZero: false,
-    callback: function(values) {
+    showZero: true,
+    callback: function (values) {
       console.log(values);
     }
   });

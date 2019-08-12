@@ -1,37 +1,38 @@
-.dropdownNcs__box {
-  height: 300px;
-  width: 300px;
-  // display: flex;
-  // justify-content: center;
-  // position: relative;
-  // overflow: hidden;
-}
 input[name="NCS"] {
   height: 44px;
   width: 266px;
-  border: 1px solid rgba(31, 32, 65, 0.25);
+  border: 1px solid $darkShade25;
   box-sizing: border-box;
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 4px 4px;
   padding: 0 24px 0px 15px;
-  // font-size: 14px;
-  // line-height: 24px;
-  // margin: 0 0 23px 0;
-  color: rgba(56, 56, 77, 0.75);
-  // font-family: "Montserrat";
-  @include mixinFont($montserrat, normal, 12, 24);
+  color: $darkShade25;
+  @include mixinFont($montserrat, normal, 14, 44);
   //   background: #fff url("./arrow-down.svg") 232px 9px no-repeat;
   text-overflow: ellipsis;
   outline: none;
   cursor: pointer;
+
+  &:hover,
+  focus {
+    border: 1px solid $darkShade75;
+    color: $darkShade75;
+    @include mixinFont($montserrat, normal, 14, 44);
+  }
+}
+
+.ncs_clicked {
+  border: 1px solid $darkShade75 !important;
+  color: $darkShade75 !important;
+  @include mixinFont($montserrat, normal, 14, 44);
+  border-radius: 4px 4px 0 0 !important;
 }
 
 div.NCS.parent {
   position: absolute;
   z-index: 1000;
   background: white;
-  border: 1px solid rgba(31, 32, 65, 0.25);
+  border: 1px solid $darkShade75;
   border-radius: 0 0 4px 4px;
-  // box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   padding: 3px 7px 0px 11px;
   text-align: center;
   overflow: hidden;
@@ -40,11 +41,11 @@ div.NCS.parent {
 }
 
 div.NCS.category {
-  // padding: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: self-start;
+  align-items: center;
   margin: 1px auto 7px auto;
+  height: 40px;
 }
 
 div.NCS.room {
@@ -78,18 +79,13 @@ div.NCS.displayelement:before {
 div.NCS.displayelement {
   display: inline;
   background: #fff;
-  color: rgba(31, 32, 65, 0.75);
+  color: $darkShade75;
   @include mixinFont($montserrat, bold, 12, 15);
-  // font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-  //   Helvetica, Arial, "Lucida Grande", sans-serif;
-  // font-weight: 300;
   margin: 0 0px 0 0;
   padding: 2.5px 0px;
   box-sizing: border-box;
   line-height: 24px;
-
   border-radius: 2.5px;
-  // font-size: 14px;
 }
 
 a.NCS.close {
@@ -118,20 +114,17 @@ div.NCS.text {
 div.NCS.name,
 a.NCS.close {
   @include mixinFont($montserrat, bold, 12, 15);
-  // font-family: "MontserratBold";
-  color: #1f2041;
+  color: $darkShade75;
   text-transform: uppercase;
-  // font-size: 12px;
-  // line-height: 15px;
-  // padding: 0 0 0 15px;
 }
+
 div.NCS.value {
-  @include mixinFont($montserrat, bold, 12, 15);
-  color: #1f2041;
+  @include mixinFont($montserrat, bold, 12, 30);
+  color: $darkShade75;
   width: 30px;
   height: 30px;
-  border: 1px solid pink;
 }
+
 div.NCS.buttons {
   display: flex;
   width: 92px;
@@ -140,19 +133,17 @@ div.NCS.buttons {
 }
 
 a.NCS.button {
-  color: rgba(31, 32, 65, 0.5);
+  color: $darkShade50;
   text-decoration: none;
   width: 30px;
   height: 30px;
-
   display: block;
   text-align: center;
   background: #fff;
-  border: 1px solid rgba(31, 32, 65, 0.25);
-  border-radius: 22px;
+  border: 1px solid $darkShade25;
+  border-radius: 50%;
   box-sizing: border-box;
   font-weight: 700;
-
   line-height: 30px;
 }
 
