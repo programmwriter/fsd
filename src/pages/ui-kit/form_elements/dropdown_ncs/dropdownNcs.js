@@ -250,7 +250,7 @@ $(document).ready(function() {
         $parent = $("<div class='NCS parent'></div>")
           // .prependTo("body")
           .appendTo($input.parent())
-          .css("top", $input.position().top + 1)
+          .css("top", $input.height())
           .hide();
 
         // switch (settings.align) {
@@ -281,13 +281,13 @@ $(document).ready(function() {
         for ($i = 0; $i < settings.categoryNames.length; $i++) {
           $category = $("<div class='NCS category'></div>").appendTo($parent);
           $text = $("<div class='NCS text'></div>").appendTo($category);
-          $value = $(
-            "<div class='NCS value' category='" +
-              $i +
-              "'>" +
-              settings.categoryValues[$i] +
-              "</div>"
-          ).appendTo($text);
+          // $value = $(
+          //   "<div class='NCS value' category='" +
+          //     $i +
+          //     "'>" +
+          //     settings.categoryValues[$i] +
+          //     "</div>"
+          // ).appendTo($text);
           $name = $(
             "<div class='NCS name' category='" +
               $i +
@@ -298,6 +298,13 @@ $(document).ready(function() {
           $buttons = $("<div class='NCS buttons'></div>").appendTo($category);
           $button_plus = $(
             "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
+          ).appendTo($buttons);
+          $value = $(
+            "<div class='NCS value' category='" +
+              $i +
+              "'>" +
+              settings.categoryValues[$i] +
+              "</div>"
           ).appendTo($buttons);
           $button_minus = $(
             "<a href='' class='NCS button minus' category='" +
@@ -313,17 +320,17 @@ $(document).ready(function() {
             $button_minus.addClass("inactive");
           }
         }
-        $close = $(
-          "<div class='NCS room'></div><a class='NCS close' href=''>Close</a>"
-        ).appendTo($parent);
-        $close.click(function() {
-          if (settings.fade) {
-            $parent.fadeOut(200);
-          } else {
-            $parent.hide();
-          }
-          return false;
-        });
+        // $close = $(
+        //   "<div class='NCS room'></div><a class='NCS close' href=''>Close</a>"
+        // ).appendTo($parent);
+        // $close.click(function() {
+        //   if (settings.fade) {
+        //     $parent.fadeOut(200);
+        //   } else {
+        //     $parent.hide();
+        //   }
+        //   return false;
+        // });
 
         if (settings.showText) {
           if (!settings.useDisplay) {
@@ -359,8 +366,8 @@ $(document).ready(function() {
   })(jQuery);
 
   $("input[name='NCS']").NCS({
-    categoryNames: ["Взрослые", "Дети", "Младенцы"],
-    categoryValues: [0, 0, 0],
+    categoryNames: ["Спальни", "Кровати", "Ванные комнаты"],
+    categoryValues: [2, 2, 0],
     minValue: 0,
     maxValue: 10,
     closeOnOutsideClick: true,

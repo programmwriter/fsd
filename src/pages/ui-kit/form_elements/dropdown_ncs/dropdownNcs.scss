@@ -13,11 +13,12 @@ input[name="NCS"] {
   box-sizing: border-box;
   border-radius: 4px 4px 0 0;
   padding: 0 24px 0px 15px;
-  font-size: 14px;
-  line-height: 24px;
+  // font-size: 14px;
+  // line-height: 24px;
   // margin: 0 0 23px 0;
   color: rgba(56, 56, 77, 0.75);
-  font-family: "Montserrat";
+  // font-family: "Montserrat";
+  @include mixinFont($montserrat, normal, 12, 24);
   //   background: #fff url("./arrow-down.svg") 232px 9px no-repeat;
   text-overflow: ellipsis;
   outline: none;
@@ -30,7 +31,7 @@ div.NCS.parent {
   background: white;
   border: 1px solid rgba(31, 32, 65, 0.25);
   border-radius: 0 0 4px 4px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  // box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   padding: 3px 7px 0px 11px;
   text-align: center;
   overflow: hidden;
@@ -78,16 +79,17 @@ div.NCS.displayelement {
   display: inline;
   background: #fff;
   color: rgba(31, 32, 65, 0.75);
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-    Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
+  @include mixinFont($montserrat, bold, 12, 15);
+  // font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+  //   Helvetica, Arial, "Lucida Grande", sans-serif;
+  // font-weight: 300;
   margin: 0 0px 0 0;
   padding: 2.5px 0px;
   box-sizing: border-box;
   line-height: 24px;
 
   border-radius: 2.5px;
-  font-size: 14px;
+  // font-size: 14px;
 }
 
 a.NCS.close {
@@ -114,16 +116,22 @@ div.NCS.text {
 }
 
 div.NCS.name,
-a.NCS.close,
-div.NCS.value {
-  font-family: "MontserratBold";
+a.NCS.close {
+  @include mixinFont($montserrat, bold, 12, 15);
+  // font-family: "MontserratBold";
   color: #1f2041;
   text-transform: uppercase;
-  font-size: 12px;
-  line-height: 15px;
+  // font-size: 12px;
+  // line-height: 15px;
   // padding: 0 0 0 15px;
 }
-
+div.NCS.value {
+  @include mixinFont($montserrat, bold, 12, 15);
+  color: #1f2041;
+  width: 30px;
+  height: 30px;
+  border: 1px solid pink;
+}
 div.NCS.buttons {
   display: flex;
   width: 92px;
@@ -137,11 +145,10 @@ a.NCS.button {
   width: 30px;
   height: 30px;
 
-  display: inline-block;
+  display: block;
   text-align: center;
   background: #fff;
   border: 1px solid rgba(31, 32, 65, 0.25);
-  box-sizing: border-box;
   border-radius: 22px;
   box-sizing: border-box;
   font-weight: 700;
