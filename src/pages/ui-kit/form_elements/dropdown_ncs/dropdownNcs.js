@@ -1,25 +1,25 @@
-$(document).ready(function() {
-  (function($) {
-    $.fn.NCS = function(options) {
+$(document).ready(function () {
+  (function ($) {
+    $.fn.NCS = function (options) {
       $input = $(this);
       $input__box = $(".dropdownNcs__box");
       $originalPlaceholder = $input.attr("placeholder");
 
-      var settings = $.extend(
-        {
+      var settings = $.extend({
           // Defaults.
           categoryNames: ["Adults", "Children"],
           categoryValues: false,
           minValue: 0,
           maxValue: 10,
           closeOnOutsideClick: true,
+          clearAndCloseButtons: false,
           showText: true,
           delimiter: ", ",
           align: "left",
           fade: true,
           useDisplay: true,
           showZero: false,
-          callback: function(values) {}
+          callback: function (values) {}
         },
         options
       );
@@ -34,7 +34,7 @@ $(document).ready(function() {
       $parent = createHTML();
 
       if (settings.closeOnOutsideClick) {
-        $(document).mouseup(function(e) {
+        $(document).mouseup(function (e) {
           if (
             !$input.is(e.target) &&
             !$parent.is(e.target) &&
@@ -54,12 +54,12 @@ $(document).ready(function() {
         });
       }
 
-      $(this).click(function() {
+      $(this).click(function () {
         switchSelector();
         switchSelectorInput();
       });
 
-      $(window).resize(function() {
+      $(window).resize(function () {
         setPositions();
       });
 
@@ -91,8 +91,8 @@ $(document).ready(function() {
             $parent.css(
               "left",
               $input.position().left +
-                $input.outerWidth(true) -
-                $parent.outerWidth(true)
+              $input.outerWidth(true) -
+              $parent.outerWidth(true)
             );
             break;
           case "center":
@@ -104,8 +104,8 @@ $(document).ready(function() {
             $parent.css(
               "left",
               $input.position().left +
-                $input.outerWidth(true) / 2 -
-                $parent.outerWidth(true) / 2
+              $input.outerWidth(true) / 2 -
+              $parent.outerWidth(true) / 2
             );
             break;
         }
@@ -118,7 +118,7 @@ $(document).ready(function() {
         }
       }
 
-      $("a.NCS.button.plus").click(function() {
+      $("a.NCS.button.plus").click(function () {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] < settings.maxValue) {
           settings.categoryValues[$category]++;
@@ -150,7 +150,7 @@ $(document).ready(function() {
         return false;
       });
 
-      $("a.NCS.button.minus").click(function() {
+      $("a.NCS.button.minus").click(function () {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] > settings.minValue) {
           settings.categoryValues[$category]--;
@@ -252,7 +252,7 @@ $(document).ready(function() {
           console.log($input.position().top);
           $("<div class='NCS inlinedisplay'></div>").appendTo($display);
 
-          $display.click(function() {
+          $display.click(function () {
             switchSelector();
           });
         }
@@ -292,23 +292,23 @@ $(document).ready(function() {
           $text = $("<div class='NCS text'></div>").appendTo($category);
           $name = $(
             "<div class='NCS name' category='" +
-              $i +
-              "'>&nbsp;" +
-              settings.categoryNames[$i] +
-              "</div>"
+            $i +
+            "'>&nbsp;" +
+            settings.categoryNames[$i] +
+            "</div>"
           ).appendTo($text);
           $buttons = $("<div class='NCS buttons'></div>").appendTo($category);
           $button_minus = $(
             "<a href='' class='NCS button minus' category='" +
-              $i +
-              "'>&#8211;</a>"
+            $i +
+            "'>&#8211;</a>"
           ).appendTo($buttons);
           $value = $(
             "<div class='NCS value' category='" +
-              $i +
-              "'>" +
-              settings.categoryValues[$i] +
-              "</div>"
+            $i +
+            "'>" +
+            settings.categoryValues[$i] +
+            "</div>"
           ).appendTo($buttons);
           $button_plus = $(
             "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
@@ -322,17 +322,32 @@ $(document).ready(function() {
             $button_minus.addClass("inactive");
           }
         }
-        // $close = $(
-        //   "<div class='NCS room'></div><a class='NCS close' href=''>Close</a>"
-        // ).appendTo($parent);
-        // $close.click(function() {
-        //   if (settings.fade) {
-        //     $parent.fadeOut(200);
-        //   } else {
-        //     $parent.hide();
-        //   }
-        //   return false;
-        // });
+        if (settings.clearAndCloseButtons) {
+
+          $footer = $("<div class='NCS__footer'></div>").appendTo($parent);
+          $clear = $(
+            "<a class='NCS__clear' href=''>очистить</a>"
+          ).appendTo($footer);
+          $clear.click(function () {
+            if (settings.fade) {
+              $parent.fadeOut(200);
+            } else {
+              $parent.hide();
+            }
+            return false;
+          });
+          $confirm = $(
+            "<a class='NCS__confirm' href=''>применить</a>"
+          ).appendTo($footer);
+          $confirm.click(function () {
+            if (settings.fade) {
+              $parent.fadeOut(200);
+            } else {
+              $parent.hide();
+            }
+            return false;
+          });
+        }
 
         if (settings.showText) {
           if (!settings.useDisplay) {
@@ -396,12 +411,13 @@ $(document).ready(function() {
     minValue: 0,
     maxValue: 10,
     closeOnOutsideClick: true,
+    clearAndCloseButtons: true,
     showText: true,
     delimiter: ", ",
     align: "left",
     fade: false,
     useDisplay: false,
     showZero: true,
-    callback: function(values) {}
+    callback: function (values) {}
   });
 });

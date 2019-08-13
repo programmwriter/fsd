@@ -50,8 +50,12 @@ div.NCS.category {
   height: 40px;
 }
 
-div.NCS.room {
-  height: 5px;
+div.NCS__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+
+  height: 25px;
 }
 
 div.NCS.display {
@@ -113,11 +117,28 @@ div.NCS.text {
   padding: 7px 0 0px 0;
 }
 
-div.NCS.name,
-a.NCS.close {
+div.NCS.name {
   @include mixinFont($montserrat, bold, 12, 15);
-  color: $darkShade75;
+  color: $darkShade;
   text-transform: uppercase;
+}
+
+a.NCS__clear,
+a.NCS__confirm,
+  {
+  @include mixinFont($montserrat, bold, 12, 15);
+  text-transform: uppercase;
+}
+
+a.NCS__clear {
+  margin-left: 4px;
+  color: $darkShade75;
+  text-decoration: none;
+}
+
+a.NCS__confirm {
+  color: $purple;
+  text-decoration: none;
 }
 
 div.NCS.value {
