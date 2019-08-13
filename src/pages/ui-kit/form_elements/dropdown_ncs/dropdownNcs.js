@@ -1,11 +1,12 @@
-$(document).ready(function () {
-  (function ($) {
-    $.fn.NCS = function (options) {
+$(document).ready(function() {
+  (function($) {
+    $.fn.NCS = function(options) {
       $input = $(this);
       $input__box = $(".dropdownNcs__box");
       $originalPlaceholder = $input.attr("placeholder");
 
-      var settings = $.extend({
+      var settings = $.extend(
+        {
           // Defaults.
           categoryNames: ["Adults", "Children"],
           categoryValues: false,
@@ -18,7 +19,7 @@ $(document).ready(function () {
           fade: true,
           useDisplay: true,
           showZero: false,
-          callback: function (values) {}
+          callback: function(values) {}
         },
         options
       );
@@ -33,7 +34,7 @@ $(document).ready(function () {
       $parent = createHTML();
 
       if (settings.closeOnOutsideClick) {
-        $(document).mouseup(function (e) {
+        $(document).mouseup(function(e) {
           if (
             !$input.is(e.target) &&
             !$parent.is(e.target) &&
@@ -46,17 +47,19 @@ $(document).ready(function () {
             } else {
               $parent.hide();
             }
-            switchSelectorInput();
+            if ($input.hasClass("ncs_clicked")) {
+              $input.removeClass("ncs_clicked");
+            }
           }
         });
       }
 
-      $(this).click(function () {
+      $(this).click(function() {
         switchSelector();
         switchSelectorInput();
       });
 
-      $(window).resize(function () {
+      $(window).resize(function() {
         setPositions();
       });
 
@@ -88,8 +91,8 @@ $(document).ready(function () {
             $parent.css(
               "left",
               $input.position().left +
-              $input.outerWidth(true) -
-              $parent.outerWidth(true)
+                $input.outerWidth(true) -
+                $parent.outerWidth(true)
             );
             break;
           case "center":
@@ -101,8 +104,8 @@ $(document).ready(function () {
             $parent.css(
               "left",
               $input.position().left +
-              $input.outerWidth(true) / 2 -
-              $parent.outerWidth(true) / 2
+                $input.outerWidth(true) / 2 -
+                $parent.outerWidth(true) / 2
             );
             break;
         }
@@ -115,7 +118,7 @@ $(document).ready(function () {
         }
       }
 
-      $("a.NCS.button.plus").click(function () {
+      $("a.NCS.button.plus").click(function() {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] < settings.maxValue) {
           settings.categoryValues[$category]++;
@@ -147,7 +150,7 @@ $(document).ready(function () {
         return false;
       });
 
-      $("a.NCS.button.minus").click(function () {
+      $("a.NCS.button.minus").click(function() {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] > settings.minValue) {
           settings.categoryValues[$category]--;
@@ -204,6 +207,15 @@ $(document).ready(function () {
       }
 
       function updateText() {
+        const multipleObj = {
+          спальни: ["спальня", "спальни", "спален"],
+          кровати: ["кровать", "кровати", "кроватей"],
+          "ванные комнаты": [
+            "ванная комната",
+            "ванные комнаты",
+            "ванных комнат"
+          ]
+        };
         $text = "";
         $added = 0;
         for ($i = 0; $i < settings.categoryNames.length; $i++) {
@@ -212,10 +224,16 @@ $(document).ready(function () {
               $text += settings.delimiter;
             }
             $text +=
-              settings.categoryValues[$i] + " " + settings.categoryNames[$i];
+              settings.categoryValues[$i] +
+              " " +
+              num2str(
+                settings.categoryValues[$i],
+                multipleObj[settings.categoryNames[$i]]
+              );
             $added++;
           }
         }
+
         $input.val($text);
       }
 
@@ -234,15 +252,14 @@ $(document).ready(function () {
           console.log($input.position().top);
           $("<div class='NCS inlinedisplay'></div>").appendTo($display);
 
-          $display.click(function () {
+          $display.click(function() {
             switchSelector();
           });
         }
 
         $parent = $("<div class='NCS parent'></div>")
-          // .prependTo("body")
           .appendTo($input.parent())
-          .css("top", $input.height())
+          .css("top", $input.height() + 2)
           .hide();
 
         // switch (settings.align) {
@@ -275,23 +292,23 @@ $(document).ready(function () {
           $text = $("<div class='NCS text'></div>").appendTo($category);
           $name = $(
             "<div class='NCS name' category='" +
-            $i +
-            "'>&nbsp;" +
-            settings.categoryNames[$i] +
-            "</div>"
+              $i +
+              "'>&nbsp;" +
+              settings.categoryNames[$i] +
+              "</div>"
           ).appendTo($text);
           $buttons = $("<div class='NCS buttons'></div>").appendTo($category);
           $button_minus = $(
             "<a href='' class='NCS button minus' category='" +
-            $i +
-            "'>&#8211;</a>"
+              $i +
+              "'>&#8211;</a>"
           ).appendTo($buttons);
           $value = $(
             "<div class='NCS value' category='" +
-            $i +
-            "'>" +
-            settings.categoryValues[$i] +
-            "</div>"
+              $i +
+              "'>" +
+              settings.categoryValues[$i] +
+              "</div>"
           ).appendTo($buttons);
           $button_plus = $(
             "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
@@ -341,11 +358,7 @@ $(document).ready(function () {
       }
 
       function switchSelectorInput() {
-        if ($input.hasClass("ncs_clicked") && $parent.attr("display") === "none") {
-          $input.removeClass("ncs_clicked");
-        } else {
-          $input.addClass("ncs_clicked");
-        }
+        $input.toggleClass("ncs_clicked");
       }
 
       function newFilledArray(len, val) {
@@ -358,8 +371,27 @@ $(document).ready(function () {
     };
   })(jQuery);
 
+  function num2str(n, text_forms) {
+    n = Math.abs(n) % 100;
+    var n1 = n % 10;
+
+    if (n > 10 && n < 20) {
+      return text_forms[2];
+    }
+
+    if (n1 > 1 && n1 < 5) {
+      return text_forms[1];
+    }
+
+    if (n1 == 1) {
+      return text_forms[0];
+    }
+
+    return text_forms[2];
+  }
+
   $("input[name='NCS']").NCS({
-    categoryNames: ["Спальни", "Кровати", "Ванные комнаты"],
+    categoryNames: ["спальни", "кровати", "ванные комнаты"],
     categoryValues: [2, 2, 0],
     minValue: 0,
     maxValue: 10,
@@ -370,8 +402,6 @@ $(document).ready(function () {
     fade: false,
     useDisplay: false,
     showZero: true,
-    callback: function (values) {
-      console.log(values);
-    }
+    callback: function(values) {}
   });
 });
