@@ -1,11 +1,11 @@
-$(document).ready(function () {
-  (function ($) {
-    $.fn.NCS = function (options) {
+$(document).ready(function() {
+  (function($) {
+    $.fn.NCS = function(options) {
       $input = $(this);
-      $input__box = $(".dropdownNcs__box");
       $originalPlaceholder = $input.attr("placeholder");
 
-      var settings = $.extend({
+      var settings = $.extend(
+        {
           // Defaults.
           categoryNames: ["Adults", "Children"],
           categoryValues: false,
@@ -19,7 +19,8 @@ $(document).ready(function () {
           fade: true,
           useDisplay: true,
           showZero: false,
-          callback: function (values) {}
+          gradation: {},
+          callback: function(values) {}
         },
         options
       );
@@ -34,7 +35,7 @@ $(document).ready(function () {
       $parent = createHTML();
 
       if (settings.closeOnOutsideClick) {
-        $(document).mouseup(function (e) {
+        $(document).mouseup(function(e) {
           if (
             !$input.is(e.target) &&
             !$parent.is(e.target) &&
@@ -54,12 +55,13 @@ $(document).ready(function () {
         });
       }
 
-      $(this).click(function () {
+      $(this).click(function() {
         switchSelector();
         switchSelectorInput();
+        console.log($input.innerWidth());
       });
 
-      $(window).resize(function () {
+      $(window).resize(function() {
         setPositions();
       });
 
@@ -91,12 +93,11 @@ $(document).ready(function () {
             $parent.css(
               "left",
               $input.position().left +
-              $input.outerWidth(true) -
-              $parent.outerWidth(true)
+                $input.outerWidth(true) -
+                $parent.outerWidth(true)
             );
             break;
           case "center":
-            console.log($input.position().top);
             $parent.css(
               "top",
               $input.position().top + $input.outerHeight(true)
@@ -104,8 +105,8 @@ $(document).ready(function () {
             $parent.css(
               "left",
               $input.position().left +
-              $input.outerWidth(true) / 2 -
-              $parent.outerWidth(true) / 2
+                $input.outerWidth(true) / 2 -
+                $parent.outerWidth(true) / 2
             );
             break;
         }
@@ -118,7 +119,7 @@ $(document).ready(function () {
         }
       }
 
-      $("a.NCS.button.plus").click(function () {
+      $("a.NCS.button.plus").click(function() {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] < settings.maxValue) {
           settings.categoryValues[$category]++;
@@ -150,7 +151,7 @@ $(document).ready(function () {
         return false;
       });
 
-      $("a.NCS.button.minus").click(function () {
+      $("a.NCS.button.minus").click(function() {
         $category = $(this).attr("category");
         if (settings.categoryValues[$category] > settings.minValue) {
           settings.categoryValues[$category]--;
@@ -182,6 +183,15 @@ $(document).ready(function () {
         return false;
       });
 
+      function clearValues() {
+        $values = $("div.NCS.value").each(function() {
+          $value = $(this);
+          $value.text(settings.categoryValues[$value.attr("category")]);
+        });
+
+        $("a.NCS.button.minus").addClass("inactive");
+      }
+
       function updateElement() {
         $input.val("");
         $display = $("div.NCS.inlinedisplay");
@@ -207,30 +217,28 @@ $(document).ready(function () {
       }
 
       function updateText() {
-        const multipleObj = {
-          спальни: ["спальня", "спальни", "спален"],
-          кровати: ["кровать", "кровати", "кроватей"],
-          "ванные комнаты": [
-            "ванная комната",
-            "ванные комнаты",
-            "ванных комнат"
-          ]
-        };
         $text = "";
         $added = 0;
-        for ($i = 0; $i < settings.categoryNames.length; $i++) {
-          if (settings.categoryValues[$i] != 0 || settings.showZero) {
-            if ($added != 0) {
-              $text += settings.delimiter;
+        if (settings.clearAndCloseButtons) {
+          let summValues = settings.categoryValues.reduce(
+            (acc, curr) => acc + curr
+          );
+          $text += summValues + " " + num2str(summValues, settings.gradation);
+        } else {
+          for ($i = 0; $i < settings.categoryNames.length; $i++) {
+            if (settings.categoryValues[$i] != 0 || settings.showZero) {
+              if ($added != 0) {
+                $text += settings.delimiter;
+              }
+              $text +=
+                settings.categoryValues[$i] +
+                " " +
+                num2str(
+                  settings.categoryValues[$i],
+                  settings.gradation[settings.categoryNames[$i]]
+                );
+              $added++;
             }
-            $text +=
-              settings.categoryValues[$i] +
-              " " +
-              num2str(
-                settings.categoryValues[$i],
-                multipleObj[settings.categoryNames[$i]]
-              );
-            $added++;
           }
         }
 
@@ -249,18 +257,17 @@ $(document).ready(function () {
           $display.css("left", $input.position().left + 1);
           $display.css("width", $input.width() - 1);
           $display.css("height", $input.height() - 1);
-          console.log($input.position().top);
           $("<div class='NCS inlinedisplay'></div>").appendTo($display);
 
-          $display.click(function () {
+          $display.click(function() {
             switchSelector();
           });
         }
 
-        $parent = $("<div class='NCS parent'></div>")
-          .appendTo($input.parent())
-          .css("top", $input.height() + 2)
-          .hide();
+        $parent = $("<div class='NCS parent'></div>").appendTo($input.parent());
+        $parent.css("top", $input.height() + 2);
+        $parent.css("width", $input.innerWidth() + 2);
+        $parent.hide();
 
         // switch (settings.align) {
         //   case "left":
@@ -292,23 +299,23 @@ $(document).ready(function () {
           $text = $("<div class='NCS text'></div>").appendTo($category);
           $name = $(
             "<div class='NCS name' category='" +
-            $i +
-            "'>&nbsp;" +
-            settings.categoryNames[$i] +
-            "</div>"
+              $i +
+              "'>&nbsp;" +
+              settings.categoryNames[$i] +
+              "</div>"
           ).appendTo($text);
           $buttons = $("<div class='NCS buttons'></div>").appendTo($category);
           $button_minus = $(
             "<a href='' class='NCS button minus' category='" +
-            $i +
-            "'>&#8211;</a>"
+              $i +
+              "'>&#8211;</a>"
           ).appendTo($buttons);
           $value = $(
             "<div class='NCS value' category='" +
-            $i +
-            "'>" +
-            settings.categoryValues[$i] +
-            "</div>"
+              $i +
+              "'>" +
+              settings.categoryValues[$i] +
+              "</div>"
           ).appendTo($buttons);
           $button_plus = $(
             "<a href='' class='NCS button plus' category='" + $i + "'>&#43;</a>"
@@ -323,23 +330,25 @@ $(document).ready(function () {
           }
         }
         if (settings.clearAndCloseButtons) {
-
           $footer = $("<div class='NCS__footer'></div>").appendTo($parent);
-          $clear = $(
-            "<a class='NCS__clear' href=''>очистить</a>"
-          ).appendTo($footer);
-          $clear.click(function () {
-            if (settings.fade) {
-              $parent.fadeOut(200);
-            } else {
-              $parent.hide();
-            }
-            return false;
+          $clear = $("<a class='NCS__clear' href=''>очистить</a>").appendTo(
+            $footer
+          );
+          $clear.click(function(e) {
+            e.preventDefault();
+            settings.categoryValues = newFilledArray(
+              settings.categoryNames.length,
+              0
+            );
+            updateText();
+            clearValues();
+            $;
           });
           $confirm = $(
             "<a class='NCS__confirm' href=''>применить</a>"
           ).appendTo($footer);
-          $confirm.click(function () {
+          $confirm.click(function() {
+            switchSelectorInput();
             if (settings.fade) {
               $parent.fadeOut(200);
             } else {
@@ -407,7 +416,7 @@ $(document).ready(function () {
 
   $("input[name='NCS']").NCS({
     categoryNames: ["спальни", "кровати", "ванные комнаты"],
-    categoryValues: [2, 2, 0],
+    categoryValues: [0, 0, 0],
     minValue: 0,
     maxValue: 10,
     closeOnOutsideClick: true,
@@ -418,6 +427,12 @@ $(document).ready(function () {
     fade: false,
     useDisplay: false,
     showZero: true,
-    callback: function (values) {}
+    gradation: ["комната", "комнаты", "комнат"],
+    // gradation: {
+    //   спальни: ["спальня", "спальни", "спален"],
+    //   кровати: ["кровать", "кровати", "кроватей"],
+    //   "ванные комнаты": ["ванная комната", "ванные комнаты", "ванных комнат"]
+    // },
+    callback: function(values) {}
   });
 });

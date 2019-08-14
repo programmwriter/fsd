@@ -1,6 +1,6 @@
 input[name="NCS"] {
-  height: 44px;
-  width: 266px;
+  // height: 44px;
+  // width: 266px;
   border: 1px solid $darkShade25;
   box-sizing: border-box;
   border-radius: 4px 4px 4px 4px;
@@ -18,6 +18,15 @@ input[name="NCS"] {
     color: $darkShade75;
     @include mixinFont($montserrat, normal, 14, 44);
   }
+}
+
+.ncs__rooms {
+  height: 44px;
+  width: 266px;
+}
+.ncs__guests {
+  height: 44px;
+  width: 320px;
 }
 
 .ncs_clicked {
@@ -38,7 +47,6 @@ div.NCS.parent {
   padding: 3px 7px 0px 11px;
   text-align: center;
   overflow: hidden;
-  width: 266px;
   box-sizing: border-box;
 }
 
@@ -124,8 +132,7 @@ div.NCS.name {
 }
 
 a.NCS__clear,
-a.NCS__confirm,
-  {
+a.NCS__confirm {
   @include mixinFont($montserrat, bold, 12, 15);
   text-transform: uppercase;
 }
@@ -150,7 +157,7 @@ div.NCS.value {
 
 div.NCS.buttons {
   display: flex;
-  width: 92px;
+  // width: 92px;
   justify-content: space-between;
   align-items: center;
 }
