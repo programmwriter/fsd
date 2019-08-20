@@ -22,6 +22,26 @@ include dropdown_ncs/dropdownNcs.pug
 
 
 -
+  var formElementState={
+    dropdowns:{
+      guests:{
+        categoryNames: ["взрослые", "дети", "младенцы"],
+        categoryValues: [0, 0, 0],
+        clearAndCloseButtons: true,
+        gradation: ["гость", "гостя", "гостей"]
+      },
+      rooms:{
+        categoryNames: ["спальни", "кровати", "ванные комнаты"],
+        categoryValues: [0, 0, 0],
+        gradation: {
+        спальни: ["спальня", "спальни", "спален"],
+        кровати: ["кровать", "кровати","кроватей"],
+        "ванные комнаты": ["ванная комната", "ванные комнаты", "ванныхкомнат"]
+        },
+        clearAndCloseButtons: false
+      }
+    }
+  }
   var optArr={rooms:[{itemText:'спальни',itemValue:0}, {itemText:'кровати',itemValue:0},{itemText:'ванные комнаты',itemValue:0}],guests:[{itemText:'взрослые',itemValue:0}, {itemText:'дети',itemValue:0},{itemText:'младенцы',itemValue:0}],}
 .form_elements
   img(class="toxin__logo" src=require("./misc/images/toxin__logo.svg"),  width='48', height='48', alt='toxin-logo')     
@@ -73,10 +93,10 @@ include dropdown_ncs/dropdownNcs.pug
       +dropdownIq    
     .itemBlockDd(style="margin-top:50px")  
       //- input(name="NCS" type="text" readonly="") 
-      +dropdownNcs("rooms")
+      +dropdownNcs("rooms",formElementState.dropdowns.rooms)
     .itemBlockDd(style="margin-top:50px")  
       //- input(name="NCS" type="text" readonly="") 
-      +dropdownNcs("guests")
+      +dropdownNcs("guests",formElementState.dropdowns.guests)
 
 
   .column_container

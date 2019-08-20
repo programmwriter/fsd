@@ -18,7 +18,7 @@ $(function() {
       nextText: "",
       // autoHideNext: true,
       callback: function(response, pagination) {
-        window.console && console.log(response, pagination);
+        // window.console && console.log(response, pagination);
         var dataHtml = "<ul>";
         $.each(response, function(index, item) {
           dataHtml += "<li>" + item + "</li>";
@@ -28,11 +28,11 @@ $(function() {
       }
     };
     container.addHook("beforeInit", function() {
-      window.console && console.log("beforeInit...");
+      // window.console && console.log("beforeInit...");
     });
     container.pagination(options);
     container.addHook("beforePageOnClick", function() {
-      window.console && console.log("beforePageOnClick...");
+      // window.console && console.log("beforePageOnClick...");
     });
     return container;
   }
