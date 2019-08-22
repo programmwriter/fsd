@@ -31,11 +31,10 @@ $(document).ready(function() {
       function main(elem) {
         $input = elem;
         $inputContainer = elem.parent();
-        $originalPlaceholder = $input.attr("placeholder");
 
         //Опции из атрибута data-opts
         const options = $input.data().opts;
-
+        $originalPlaceholder = options.placeholder;
         //Мержим оции поумолчанию и оции из атрибута data-opt
         for (item in settings) {
           if (!options.hasOwnProperty(item)) {
@@ -262,7 +261,6 @@ $(document).ready(function() {
 
         //функция обновления знечений в инпуте
         function updateText(parent) {
-          console.log(options.categoryValues);
           if (parent) {
             $input = $(parent).prev();
           }
@@ -400,18 +398,13 @@ $(document).ready(function() {
               );
               updateText($parent);
               clearValues($parent);
-              // $;
             });
             $confirm = $(
               "<a class='NCS__confirm' href=''>применить</a>"
             ).appendTo($footer);
             $confirm.click(function() {
-              switchSelectorInput();
-              if (options.fade) {
-                $parent.fadeOut(200);
-              } else {
-                $parent.hide();
-              }
+              switchSelectorInput($input);
+              switchSelector($input);
               return false;
             });
           }

@@ -1,2 +1,3 @@
 mixin dropdownNcs(mode,options)
-  input(class="ncs__"+mode name="NCS" type="text" readonly="" data-opts=options)
+  label(for="NCS") 
+  input(class="ncs__"+mode name="NCS" type="text" readonly="" placeholder=options.placeholder data-opts=options)

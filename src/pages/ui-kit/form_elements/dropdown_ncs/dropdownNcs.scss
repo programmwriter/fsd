@@ -7,7 +7,9 @@ input[name="NCS"] {
   padding: 0 24px 0px 15px;
   color: $darkShade25;
   @include mixinFont($montserrat, normal, 14, 44);
-  //   background: #fff url("./arrow-down.svg") 232px 9px no-repeat;
+  // background: #fff url("./images/arrow-down.svg") 232px 9px no-repeat;
+  // background-image: url(./images/arrow-down.svg);
+  // background: #fff 285px 9px no-repeat;
   text-overflow: ellipsis;
   outline: none;
   cursor: pointer;

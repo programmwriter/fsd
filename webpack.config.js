@@ -2,6 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPuckPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const WriteFilePlugin = require("write-file-webpack-plugin");
 
 module.exports = {
   module: {
@@ -77,6 +79,11 @@ module.exports = {
       template: "./src/index.pug",
       filename: "./index.html"
     }),
+    new CopyWebpackPlugin([
+      { from: "./src/misc/images", to: "./images" }
+      // { from: 'other', to: 'public' },
+    ]),
+    new WriteFilePlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
