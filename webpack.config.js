@@ -6,6 +6,11 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const WriteFilePlugin = require("write-file-webpack-plugin");
 
 module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js"
+  },
   module: {
     rules: [
       {
@@ -19,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        // exclude: /node-modules/,
+        exclude: /node-modules/,
         use: [
           {
             loader: "babel-loader",
@@ -29,15 +34,19 @@ module.exports = {
       },
       {
         test: /\.(scss|css)$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: [
+          "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
+        ]
       },
-      // {
-      //   test: /\.css$/,
-      //   loaders: ["style-loader", "css-loader"]
-      // },
       {
         test: /\.pug$/,
-        use: ["pug-loader"]
+        loader: "pug-loader",
+        options: {
+          pretty: true
+        }
       },
       // {
       //   test: /\.(png|svg|jpg|gif)$/,
@@ -67,6 +76,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  devServer: {
+    stats: "errors-only"
   },
   plugins: [
     new webpack.ProvidePlugin({
