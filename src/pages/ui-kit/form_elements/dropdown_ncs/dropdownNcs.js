@@ -31,7 +31,9 @@ $(document).ready(function() {
       function main(elem) {
         $input = elem;
         $inputContainer = elem.parent();
-
+        // if ($displayelements == 0) {
+        $input.attr("placeholder", $originalPlaceholder);
+        // }
         //Опции из атрибута data-opts
         const options = $input.data().opts;
         $originalPlaceholder = options.placeholder;

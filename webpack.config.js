@@ -38,6 +38,7 @@ module.exports = {
           "style-loader",
           MiniCssExtractPlugin.loader,
           "css-loader",
+          // "resolve-url-loader",
           "sass-loader"
         ]
       },

@@ -1,14 +1,13 @@
 input[name="NCS"] {
-  // height: 44px;
-  // width: 266px;
   border: 1px solid $darkShade25;
   box-sizing: border-box;
   border-radius: 4px 4px 4px 4px;
   padding: 0 24px 0px 15px;
   color: $darkShade25;
   @include mixinFont($montserrat, normal, 14, 44);
-  // background: #fff url("./images/arrow-down.svg") 232px 9px no-repeat;
-  // background-image: url(./images/arrow-down.svg);
+  background: #fff url("./misc/images/arrow-down-passive.svg") 96% center
+    no-repeat;
+  // background-image: url("./misc/images/arrow-down.svg");
   // background: #fff 285px 9px no-repeat;
   text-overflow: ellipsis;
   outline: none;
@@ -19,6 +18,7 @@ input[name="NCS"] {
     border: 1px solid $darkShade50;
     color: $darkShade75;
     @include mixinFont($montserrat, normal, 14, 44);
+    background: #fff url("./misc/images/arrow-down.svg") 96% center no-repeat !important;
   }
 }
 
@@ -36,6 +36,7 @@ input[name="NCS"] {
   color: $darkShade75 !important;
   @include mixinFont($montserrat, normal, 14, 44);
   border-radius: 4px 4px 0 0 !important;
+  background: #fff url("./misc/images/arrow-down.svg") 96% center no-repeat !important;
 }
 
 div.NCS.parent {

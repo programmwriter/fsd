@@ -41516,7 +41516,10 @@ $(document).ready(function () {
 
       function main(elem) {
         $input = elem;
-        $inputContainer = elem.parent(); //Опции из атрибута data-opts
+        $inputContainer = elem.parent(); // if ($displayelements == 0) {
+
+        $input.attr("placeholder", $originalPlaceholder); // }
+        //Опции из атрибута data-opts
 
         var options = $input.data().opts;
         $originalPlaceholder = options.placeholder; //Мержим оции поумолчанию и оции из атрибута data-opt
@@ -42175,7 +42178,7 @@ function zero3(val) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\web\fsd\node_modules\webpack-dev-server\client\index.js?http://localhost */"./node_modules/webpack-dev-server/client/index.js?http://localhost");
+__webpack_require__(/*! C:\coding\fsd\node_modules\webpack-dev-server\client\index.js?http://localhost */"./node_modules/webpack-dev-server/client/index.js?http://localhost");
 module.exports = __webpack_require__(/*! ./src/index.js */"./src/index.js");
 
 

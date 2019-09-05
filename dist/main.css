@@ -1829,6 +1829,7 @@ input[name="NCS"] {
   font-weight: normal;
   font-size: 14px;
   line-height: 44px;
+  background: #fff url(src/misc/images/arrow-down-passive.svg) 96% center no-repeat;
   text-overflow: ellipsis;
   outline: none;
   cursor: pointer; }
@@ -1840,7 +1841,8 @@ input[name="NCS"] {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 44px; }
+    line-height: 44px;
+    background: #fff url(src/misc/images/arrow-down.svg) 96% center no-repeat !important; }
 
 .ncs__rooms {
   height: 44px;
@@ -1858,7 +1860,8 @@ input[name="NCS"] {
   font-weight: normal;
   font-size: 14px;
   line-height: 44px;
-  border-radius: 4px 4px 0 0 !important; }
+  border-radius: 4px 4px 0 0 !important;
+  background: #fff url(src/misc/images/arrow-down.svg) 96% center no-repeat !important; }
 
 div.NCS.parent {
   position: absolute;

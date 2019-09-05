@@ -25,6 +25,7 @@
     "paginationjs": "^2.1.4",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
+    "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^2.1.0",
