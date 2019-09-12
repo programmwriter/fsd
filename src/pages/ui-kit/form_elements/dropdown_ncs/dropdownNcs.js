@@ -31,9 +31,7 @@ $(document).ready(function() {
       function main(elem) {
         $input = elem;
         $inputContainer = elem.parent();
-        // if ($displayelements == 0) {
-        $input.attr("placeholder", $originalPlaceholder);
-        // }
+
         //Опции из атрибута data-opts
         const options = $input.data().opts;
         $originalPlaceholder = options.placeholder;
@@ -272,12 +270,21 @@ $(document).ready(function() {
             let summValues = options.categoryValues.reduce(
               (acc, curr) => acc + curr
             );
-            $text += summValues + " " + num2str(summValues, options.gradation);
+            if (summValues === 0) {
+              console.log($originalPlaceholder);
+              $input.attr("placeholder", $originalPlaceholder);
+            } else {
+              $text +=
+                summValues + " " + num2str(summValues, options.gradation);
+            }
           } else {
             for ($i = 0; $i < options.categoryNames.length; $i++) {
               if (options.categoryValues[$i] != 0 || options.showZero) {
                 if ($added != 0) {
                   $text += options.delimiter;
+                } else if ($added === 0) {
+                  console.log($originalPlaceholder);
+                  $input.attr("placeholder", $originalPlaceholder);
                 }
                 $text +=
                   options.categoryValues[$i] +
